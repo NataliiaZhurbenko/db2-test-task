@@ -1,0 +1,178 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: DB2 Technical task
+  description: Documentation of the DB2 Technical task REST API
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+definitions:
+  message:
+    required:
+      - author
+      - text
+      - email
+    properties:
+      author:
+        type: string
+      text:
+        type: string
+        minLength: 1
+        maxLength: 99
+        pattern: '^.{1,99}$'
+      email:
+        type: string
+        pattern: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+      create_date:
+        type: string
+        format: 'date'
+      update_date:
+        type: string
+        format: 'date'
+  message_input:
+    required:
+      - author
+      - text
+      - email
+    properties:
+      author:
+        type: string
+      text:
+        type: string
+        minLength: 1
+        maxLength: 99
+        pattern: '^.{1,99}$'
+      email:
+        type: string
+        pattern: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+  message_output:
+    properties:
+      message:
+        type: string
+        description: The retrieving/creation/updating information
+      data:
+        $ref: "#/definitions/message"
+
+parameters:
+  message_id:
+    name: message_id
+    in: path
+    description: ID of the message
+    required: true
+    type: integer
+
+paths:
+  /api/messages/list/{page}:
+    parameters:
+      - name: page
+        in: path
+        description: The page number
+        required: true
+        type: integer
+        minimum: 0
+
+    get:
+      description: Returns messages within pagination (page size = 10 by default)
+      responses:
+        default:
+          description: Returns the retrieving info and the list of messages
+          schema:
+            properties:
+              status:
+                type: string
+                description: The retrieving status
+              message:
+                type: string
+                description: The retrieving information
+              data:
+                description: The list of messages
+                type: array
+                items:
+                  $ref: "#/definitions/message"
+
+  /api/messages:
+    post:
+      description: Creates a new message
+      parameters:
+        - name: message
+          in: body
+          description: A new message data
+          required: true
+          schema:
+            $ref: "#/definitions/message_input"
+      responses:
+        default:
+          description: Returns the creation information and the newly-added message
+          schema:
+            $ref: "#/definitions/message_output"
+
+  /api/messages/single/{message_id}:
+    parameters:
+      - $ref: "#/parameters/message_id"
+
+    get:
+      description: Returns a message by ID
+      responses:
+        default:
+          description: Returns the retrieving info and the message data
+          schema:
+            $ref: "#/definitions/message_output"
+
+    put:
+      description: Updates a message by ID
+      parameters:
+        - name: message
+          in: body
+          description: The message data
+          required: true
+          schema:
+            $ref: "#/definitions/message_input"
+      responses:
+        default:
+          description: Returns the updating information and the updated message
+          schema:
+            $ref: "#/definitions/message_output"
+
+    patch:
+      description: Updates a message by ID
+      parameters:
+        - name: message
+          in: body
+          description: The message data
+          required: true
+          schema:
+            $ref: "#/definitions/message_input"
+      responses:
+        default:
+          description: Returns the updating information and the updated message
+          schema:
+            $ref: "#/definitions/message_output"
+
+    delete:
+      description: Deletes a single message based on the ID supplied
+      responses:
+        default:
+          description: Returns the deleting info
+          schema:
+            properties:
+              status:
+                type: string
+                description: The deleting status
+              message:
+                type: string
+                description: The deleting information
+
+  /:
+    get:
+      produces:
+        - text/html
+      responses:
+        default:
+          description: The DB2 Technical task homepage
+          schema:
+            type: file
+            default:
+              $ref: "index.html"
