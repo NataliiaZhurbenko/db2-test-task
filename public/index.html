@@ -1,7 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
+<title>Chat</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    html,body,h1,h2,h3,h4,h5 {
+        font-family: "RobotoDraft", "Roboto", sans-serif;
+    }
 
-<head></head>
+    .w3-bar-block .w3-bar-item {
+        padding:16px
+    }
+
+    #message0 {
+        display: none;
+    }
+
+</style>
 <body>
-    <div>Hello world!</div>
+
+    <div class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:700px;" id="chat">
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-light-green w3-button w3-hover-green w3-left-align" onclick="document.getElementById('send-message').style.display='block'">New Message <i class="w3-padding fa fa-pencil"></i></a>
+        <a id="messages" onclick="showMessages('Demo')" href="javascript:void(0)" class="w3-bar-item w3-button w3-orange"><i class="fa fa-inbox w3-margin-right"></i>Messages<i class="w3-margin-left fa fa-caret-down"></i></a>
+        <div id="Demo" class="w3-hide w3-animate-left messages-list">
+            <a href="javascript:void(0)"  id="message0" class="message-item w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey">
+                <div class="w3-container">
+                    <span class="w3-opacity w3-large message-author"></span>
+                    <h6 class="message-text"></h6>
+                    <p class="message-date"></p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Modal that pops up when you click on "New Message" -->
+    <div id="send-message" class="w3-modal" style="z-index:4">
+        <div class="w3-modal-content w3-animate-zoom">
+            <div class="w3-container w3-padding w3-light-green">
+                <span onclick="document.getElementById('send-message').style.display='none'" class="w3-button w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
+                <h2>Send Message</h2>
+            </div>
+            <div class="w3-panel">
+                <label>Author</label>
+                <input id="message-author" class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Your name">
+
+                <label>Email</label>
+                <input id="message-email" class="w3-input w3-border w3-margin-bottom" type="email" placeholder="Your email">
+
+                <label>Message</label>
+                <input id="message-text" class="w3-input w3-border w3-margin-bottom" style="height:150px" placeholder="What's on your mind?">
+
+                <div class="w3-section">
+                    <a class="w3-button w3-deep-orange" onclick="document.getElementById('send-message').style.display='none'">Cancel  <i class="fa fa-remove"></i></a>
+                    <a class="w3-button w3-right w3-amber" onclick="sendMessage()">Send  <i class="fa fa-paper-plane"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="index.js"></script>
 
 </body>
+</html>

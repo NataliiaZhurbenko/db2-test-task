@@ -38,7 +38,7 @@ let Message =  mongoose.model("message", messageSchema);
 const perPage = 10;
 
 Message.get = (callback, page) => {
-    Message.find(callback).skip(perPage * page).limit(perPage);
+    Message.find(callback).sort('-create_date').skip(perPage * page).limit(perPage);
 };
 
 module.exports  = Message;
