@@ -3,14 +3,15 @@ let app = express();
 
 let port = process.env.PORT || 8080;
 
+let cors = require('cors’);
 let bodyParser = require('body-parser');
 
 let mongoose = require('mongoose');
-
-
-let messageRoutes = require("./messageRoutes");
 let  db = mongoose.connection;
 
+let messageRoutes = require("./messageRoutes");
+
+app.use(cors());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
