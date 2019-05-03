@@ -91,7 +91,7 @@ paths:
                 description: The list of messages
                 type: array
                 items:
-                  $ref: "#/definitions/message"
+                  - $ref: "#/definitions/message"
 
   /api/messages:
     post:
