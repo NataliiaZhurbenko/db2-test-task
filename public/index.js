@@ -126,19 +126,19 @@ function renderMessages(messages) {
 
     messages.data.forEach((message) => {
         let messagesList = document.querySelector('.messages-list');
-        let messageItem = document.querySelector('.message-item');
+        let messageItem = document.getElementById('message0');
         let messageItemClone = messageItem.cloneNode(true);
 
-        messageItem.setAttribute('id', message._id);
+        messageItemClone.setAttribute('id', message._id);
         messagesList.appendChild(messageItemClone);
 
-        let authorElem = document.querySelector('.message-author');
+        let authorElem = messageItemClone.querySelector('.message-author');
         authorElem.innerText = message.author;
 
-        let textElem = document.querySelector('.message-text');
+        let textElem = messageItemClone.querySelector('.message-text');
         textElem.innerText = message.text;
 
-        let dateElem = document.querySelector('.message-date');
+        let dateElem = messageItemClone.querySelector('.message-date');
         dateElem.innerText = formatDate(message.create_date);
     });
 }
